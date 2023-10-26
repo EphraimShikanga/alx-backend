@@ -13,10 +13,13 @@ class LIFOCache(BaseCaching):
 
         Methods:
             def __init__(self): Initializes the LIFOCache instance
-            def put(self, key, item): Adds an item to the cache
-            def get(self, key): Retrieves an item from the cache
+            def put(self, key, item)
+            def get(self, key):
         """
         def put(self, key, item):
+            """
+            Adds an item to the cache
+            """
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
                 keys = list(self.cache_data.keys())
                 self.cache_data.pop(keys[-1])
@@ -26,4 +29,7 @@ class LIFOCache(BaseCaching):
             self.cache_data[key] = item
 
         def get(self, key):
+            """
+            Retrieves an item from the cache
+            """
             return self.cache_data.get(key, None)
