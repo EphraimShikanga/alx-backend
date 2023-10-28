@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+LIFOCache module
+"""
 from base_caching import BaseCaching
 from collections import OrderedDict
 
@@ -26,13 +29,12 @@ class LIFOCache(BaseCaching):
         if key and item:
             self.cache_data[key] = item
             self.oderd_cache_key.append(key)
-        
+
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             lifo_key = self.oderd_cache_key[-1]
             del self.cache_data[lifo_key]
             self.oderd_cache_key = self.oderd_cache_key[:-1]
             print(f"DISCARD: {lifo_key}")
-        
 
     def get(self, key):
         """
