@@ -6,17 +6,23 @@ from base_caching import BaseCaching
 
 
 class LRUCache(BaseCaching):
+    """
+    LRUCache class that inherits from BaseCaching class
+    """
     def __init__(self):
         super().__init__()
         self.orderd_cache_keys = []
-    
+
     def put(self, key, item):
+        """
+        add an item in the cache
+        """
         if key and item:
             self.cache_data[key] = item
             if key in self.orderd_cache_keys:
                 self.orderd_cache_keys.remove(key)
             self.orderd_cache_keys.append(key)
-        
+
         if len(self.cache_data) > self.MAX_ITEMS:
             lru_key = self.orderd_cache_keys[0]
             del self.cache_data[lru_key]
@@ -24,6 +30,9 @@ class LRUCache(BaseCaching):
             print(f"DISCARD: {lru_key}")
 
     def get(self, key):
+        """
+        get an item by key
+        """
         if key is None or key not in self.cache_data:
             return None
 
