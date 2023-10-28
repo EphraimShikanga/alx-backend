@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 from base_caching import BaseCaching
-from collections import OrderedDict
 
 
 class FIFOCache(BaseCaching):
@@ -11,20 +10,25 @@ class FIFOCache(BaseCaching):
         """
         Initializes the FIFOCache instance
         """
-        self.cache_data = OrderedDict()
-        return super().__init__()
+        super().__init__()
+        self.orderd_cache_keys = []
 
     def put(self, key, item):
         """
         Adds an item to the cache
         """
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            keys = list(self.cache_data.keys())
-            self.cache_data.pop(keys[0])
-            print(f"DISCARD: {keys[0]}")
-        if key is None or item is None:
-            return
-        self.cache_data[key] = item
+            fifo_key = self.orderd_cache_keys[0]
+            del self.cache_data[fifo_key]
+            self.orderd_cache_keys = self.orderd_cache_keys[1:]
+            print(f"DISCARD: {fifo_key}")
+        if key and item:
+            self.cache_data[key] = item
+            if key in self.orderd_cache_keys:
+                self.orderd_cache_keys.remove(key)
+            self.orderd_cache_keys.append(key)
+        
+    
 
     def get(self, key):
         """
