@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+FIFOCache module
+"""
 from base_caching import BaseCaching
 
 
@@ -27,8 +30,6 @@ class FIFOCache(BaseCaching):
             if key in self.orderd_cache_keys:
                 self.orderd_cache_keys.remove(key)
             self.orderd_cache_keys.append(key)
-        
-    
 
     def get(self, key):
         """
